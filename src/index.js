@@ -45,26 +45,16 @@ function onInputClick(event) {
   const breedId = event.target.value;
   fetchBreedsById(breedId)
     .then(data => {
-      // // Створення елементів для зображення та інформації
-      const catImage = document.createElement('img');
-      const catName = document.createElement('h1');
-      const catDescription = document.createElement('h3');
-      const catTemperament = document.createElement('h3');
+      const catImage = data[0].url;
+      console.log(catImage);
+      const altName = data[0].breeds[0].alt_names;
+      const catName = data[0].breeds[0].name;
+      const catDescription = data[0].breeds[0].description;
+      const catTemperament = data[0].breeds[0].temperament;
+      const markup = `<div class="img-cont"><img src="${catImage}" alt="${altName}" /></div><div class="cat-info-cont"><h1>${catName}</h1><p>${catDescription}</p><p><strong>Temperament: </strong>${catTemperament}</p></div>`;
+      refs.catInfoContainer.innerHTML = markup;
 
-      // // Встановлення значень для зображення та інформації з відповіді сервера
-      catImage.src = data[0].url;
-      catName.textContent = data[0].breeds[0].name;
-      catDescription.textContent = `Description: ${data[0].breeds[0].description}`;
-      catTemperament.textContent = `Temperament: ${data[0].breeds[0].temperament}`;
-
-      // // Додавання створених елементів до контейнера
-      refs.catInfoContainer.innerHTML = '';
-      refs.catInfoContainer.appendChild(catImage);
-      refs.catInfoContainer.appendChild(catName);
-      refs.catInfoContainer.appendChild(catDescription);
-      refs.catInfoContainer.appendChild(catTemperament);
-
-      refs.catInfoContainer.style.display = 'block';
+      refs.catInfoContainer.style.display = 'flex';
       hideLoader();
     })
     // .finally(() => {
@@ -97,3 +87,25 @@ function failureMessage() {
 function hideLoader() {
   refs.loader.style.display = 'none';
 }
+
+// var 1
+// // Створення елементів для зображення та інформації
+// const catImage = document.createElement('img');
+// const catName = document.createElement('h1');
+// const catDescription = document.createElement('h3');
+// const catTemperament = document.createElement('h3');
+
+// // Встановлення значень для зображення та інформації з відповіді сервера
+// catImage.src = data[0].url;
+// catName.textContent = data[0].breeds[0].name;
+// catDescription.textContent = `${data[0].breeds[0].description}`;
+// catTemperament.textContent = `Temperament: ${data[0].breeds[0].temperament}`;
+
+// // Додавання створених елементів до контейнера
+// refs.catInfoContainer.innerHTML = '';
+// refs.catInfoContainer.appendChild(catImage);
+// refs.catInfoContainer.appendChild(catName);
+// refs.catInfoContainer.appendChild(catDescription);
+// refs.catInfoContainer.appendChild(catTemperament);
+
+// var 2
